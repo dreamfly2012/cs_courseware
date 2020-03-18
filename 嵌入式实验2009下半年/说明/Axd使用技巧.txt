@@ -1,0 +1,106 @@
+ARM ADS中的AXD 调试经验集锦2009-08-22 15:05ARM ADS中的AXD 调试经验集锦 
+本文来自：http://blog.ednchina.com/arm/35008/message.aspx
+
+1、如何设置AXD连接的Target。
+在菜单的Configure Target…选项中可以设置。一般选择MutiIce或者ARMUL两种。
+
+ARMUL是一种ARM的模拟器。一般的算法或者一些无需和硬件中断等设备打交道的程序都可以通过这个进行调试。使用上非常简单。
+
+我们一般上板子进行调试都是通过MutiICE来进行。在刚刚安装了系统的时候，菜单中没有MutiICE，需要我们手动添加：
+
+点击ADD按钮，然后在弹出的文件浏览中，选择“C:\Program Files\ARM\Multi-ICE\Muti-ICE.dll”（默认安装的话）。然后点击“确定”。这样就把MutiICE的调试接口安装上了。
+
+2、如何保存当前的调试现场。
+我们在调试过程中，经常需要在不同的地方设置断点、设置Watchpoint或者打开很多source文件。但是，一旦我们关闭了AXD，所有的工作都白费了。当我们再次打开AXD后，我们得到的仍然是没有任何断点、只打开一个entry文件的调试环境。这里介绍一种方法可以自动保存上一次的调试现场（寄存器的数据都是保存的）。
+
+        Options->General tab. 这里确认Save and load default sessions 选项 是选中的。然后打开Session File，确保Rselect Target和Reload images 选项是选中的。
+
+        在设置保存后，我们在关闭AXD后，再次启动，就会自动加载上次的image，恢复寄存器了。
+
+        如果需要保存多个现场，那么就在设置保存后，在File菜单中选择Save Session来进行保存。不过注意，保存的路径中不能 有空格和特殊字符。最好保存在ClearCase上。在需要恢复现场的时候，只需要Load Session就一切OK。你以前辛辛苦苦设置的断点、 Watchpoint全都回来了。
+
+3、不能设置断点，怎么办？
+不能设置断点时，我仅知有几种解决方案，这里列举一下：
+
+A：清空CPU的Vector Catch 。
+
+        在Options->Configure Process..中清除。
+
+B：Run一下，马上暂停。
+
+        这种方式对要求不高的断点（诸如设置在APP层中的断点）比较合适。方便。
+
+C：清除以前的断点。
+
+        一般发生在Flash调试的情况。首先清除以前的断点，然后才能设置新的断点。
+
+D：命令行 spp vector_catch 0
+
+     其实和A相同。如果写在开机script中，那么就可以自动排除开机无法设置断点问题。
+
+E：启动AXD的时候使用—debug这个参数，这样就可以添加一个自动断点在Main（）上。 
+
+4、         如何不reload image就可以重新从头开始调试。
+很多时候我们需要让代码重头跑起来复现一个bug。但是，一般来说，都是reload一下。如果image比较小还可以忍受，但是想660那种16M左右的巨型image，这种代价就未免太大。这里介绍几种我所知道的方法，可以从头开始调试：
+
+A：设置Current寄存器。
+
+        点击 打开process register->current 组。设置pc为0 ， cpsr为 svc模式下。关闭Thumb模式。这时F5即可运行下去。
+
+B：运行脚本
+
+        这种方式速度更快，也方便。上上之选。
+
+setpc 0
+
+sreg cpsr 0xd3
+
+5、         如何无条件跳转？
+一般这种事情最好是在同一个函数中，某条语句无条件跳到另一条语句上时使用。最好不要跨函数使用（否则有堆栈错误，很难查的）
+
+把光标定在需要跳转到的代码上，右键菜单execute->Set Next Statement .
+
+
+6、         AXD有没有什么辅助工具？
+有的。
+
+IDA pro ，非常好的axf解析工具。可以统计axf文件中的函数、全局变量、调用关系等。界面非常友好，代码界面可以清楚看出函数引用关系、变量初始话、变量引用、修改的统计。
+
+可以说，IDA Pro是汇编级的Source insight 。大家可以在网络上下载它的最新版安装使用。
+
+
+7、 如何调试需要加载到Flash上的代码
+以下是我的经验：
+
+1、   在有jTag调试口的板子上Download一个版本。
+
+2、   选择 File->load debug symbols 。然后选择CodeWarrior上Release版生成的那个AXF。
+
+3、 现在就可以调试Flash上的程序了。和Debug完全一样。不过注意，在这种情况下，一般只能设置2个断点。
+
+
+8、 使用fromelf命令
+fromelf命令可以对我们生成的axf文件进行进一步操作的命令。
+
+诸如：
+
+从axf文件中抽出二进制代码：fromelf –bin –output a.bin a.axf
+
+从axf文件中抽出二进制代码：fromelf –m32 –output a.s32 a.axf
+
+9、 FAQ
+
+Q:   生成的ram方式的redboot映像文件，应该使用什么工具调试编译的ram方式的redboot。
+
+用ADS调试工具只能加载.axf格式的文件
+
+A:   用ADS还可以加载bin文件(File->Load Memory From Memory...),可以使用ADS命令行或脚本初始化SDRAM
+
+load bin文件时需要指定载入地址，对于s3c44b0x通常为0x0c040000,即在相应的ldi文件中指定的
+SECTION_rom_vectors (ram, 0x0c040000 , LMA_EQ_VMA)
+
+将BIN程序Load后，将PC指针修改为0X0C040000即可
+
+
+本文来自CSDN博客，转载请标明出处：http://blog.csdn.net/lanmanck/archive/2009/06/16/4273242.aspx
+ 

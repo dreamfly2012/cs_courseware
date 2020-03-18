@@ -1,0 +1,78 @@
+org 0000h
+ljmp strt
+org 000bh
+ljmp toin
+org 0040h
+strt:
+mov tmod,#01h
+
+mov ie,#82h
+mov ip,#02h
+
+mov r3,#9dh
+mov r4,#58h
+mov th0,r3
+mov tl0,r4
+mov r0,#1
+mov r1,#1
+mov r2,#18h
+mov r5,#1
+mov p1,#08h
+mov tcon,#10h
+halt:sjmp $
+
+
+toin:
+cjne r5,#1,bb0
+ljmp aa1
+bb0:cjne r5,#2,bb1
+ljmp aa2
+bb1:ljmp aa3
+
+aa1:
+inc r1
+cjne r1,#6,rel
+mov r1,#1
+mov a,r0
+mov dptr,#dat1
+movc a, @a+dptr
+mov p1,a
+inc r0
+cjne r0,#4,rel
+mov r0,#0
+djnz r2,rel
+mov r5,#2
+mov r3,#3ch
+mov r4,#0b0h
+mov r0,#0
+mov r1,#1h
+jmp rel
+
+aa2:
+inc r1
+cjne r1,#1eh,rel
+mov r5,#3
+mov r3,084h
+mov r4,0eeh
+mov r0,#0
+jmp rel
+
+aa3:
+mov a,r0
+mov dptr,#dat2
+movc a, @a+dptr
+mov p1,a
+inc r0
+cjne r0,#4,rel
+mov r0,#0
+jmp rel
+
+
+
+rel:
+mov th0,r3
+mov tl0,r4
+reti
+dat1: db 1h,02h,04h,08h
+dat2: db 08h,04h,02h,01h
+end

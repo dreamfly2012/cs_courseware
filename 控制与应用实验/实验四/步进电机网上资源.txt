@@ -1,0 +1,216 @@
+；****************任务八：四相步进电机的控制************************* 
+
+；注：本程序为四相步进电机实验用，适于四组线圈的电机。 
+
+；电路接法：P1.7 P1.6 P1.5 P1.4分别接晶体管驱动器A，B，C，D输入端，
+
+；相应输出端接步进电机的a，b，c，d四相，电机公共端接步进电机电源正。  
+
+
+
+
+ORG  0000H               ；让编译程序从0地址开始 
+
+JMP    STAR 
+
+ORG  0030H   
+
+　
+
+STAR：  MOV SP，#30H           ；堆栈指针设定   
+
+MOV  21H，＃00H            ；初始步调清零（0－7）有效
+
+MOV  20H，＃4             ；速度选择1至255（1最大）
+
+MOV   A,  #200            ；转200步 
+
+ 
+
+LOOP：   MOV  R3，＃4               ；执行4次  
+
+L1：    CALL    BJDJ_4Z；          ；正转 
+
+DJNZ     R3，L1 
+
+MOV     R3, #10            ；停止一秒 
+
+L2：    CALL    YS_01S          ；延时2 ms 
+
+DJNZ     R3，L2 
+
+MOV   R3, #4                  ；执行4次 
+
+L3：    CALL    BJDJ_4F                ；正转 
+
+DJNZ    R3，L3 
+
+MOV   R3,   #10              ；停止一秒 
+
+L4：    CALL    YS_01S        
+
+DJNZ    R3，L4 
+
+JMP    LOOP 
+
+  
+
+PROC  YS_01S,  YS_20MS                ；延时子程序定义 
+
+YS_01S： MOV  R7，＃10                  ；R7中送入数值10 
+
+LP3：    MOV  R6，＃100                  ；R6中送入数值100 
+
+LP2：    MOV  R5，＃100                  ；R5中送入数值100 
+
+LP1：    DJNZ  R5，LP1                   ；R5减1不为0转LP1 
+
+DJNZ  R6，LP2                    ；R6减1不为0转LP2 
+
+DJNZ  R7，LP3                     ；R7减1不为0转LP3 
+
+RET                               ；子程序返回 
+
+YS_20MS： MOV  R7，＃1                    ；R7中送入数值1 
+
+JMP  LP3                          ；转到LP3 
+
+END                               ；子程序编译结束 
+
+    
+
+；****************步进电机控制子程序************************* 
+
+；作用：四相步进电机角度及速度控制 
+
+；使用方法：先在速度寄存单元20H写入速度值1至255（1最快） 
+
+ ；将要转过的步数写入A（1－255），调用该正转或反转子程序。 
+
+；电路接法： P1.7， P1.6 ，P1.5， P1.4分别接晶体管驱动器A，B，C，D输入端，   
+
+；相应输出端接步进电机的a，b，c，d四相，电机公共端接步进电机电源正。  
+
+；资源占用：  20H-速度，21H-步调，R0，B，DPTR 
+
+  
+
+PROC  BJDJ_4Z，BJDJ_4F 
+
+BJDJ_4Z： PUSH  A 
+
+MOV  R0，A              ；步进数送R0 
+
+MOV  DPTR，＃MTAB     ；控制码地址送DPTR 
+
+MOV   A, P1               ；P1口状态送A 
+
+ANL    A，＃0FH           ；清零高四位 
+
+MOV  B，A               ；保存P1口低四位状态 
+
+ LP2：  INC  21H                  ；步调数加1 
+
+MOV  A，21H              ；步调数(0至7)，每8步为一个周期， 
+
+CLR    A 
+
+MOV   21H，A 
+
+LP1：  MOVC  A，@A+DPTR        ；查控制码到A 
+
+ORL  A，B                  ；P1口低4位状态送A 
+
+MOV   P1,A                 ； 送出控制码 
+
+CALL    YS_SD              ；根据速度参数延
+
+DJNZ  R0，LP2                 ；步进数减1不为0转LP2 
+
+MOV  A，＃0F0H            ；停止电机驱动 
+
+ORL  A，B  
+
+MOV   P1,A 
+
+POP    A 
+
+RET                       ；子程序返回 
+
+  
+
+BJDJ_4F：PUSH    A 
+
+MOV  R0，A                ；步进数送R0 
+
+MOV  DPTR，＃MTAB        ；控制码地址送DPTR 
+
+MOV   A, P1                ；P1口状态送A 
+
+ANL  A，＃0FH           ；清零高四位 
+
+MOV  B，A               ；保存P1口低四位状态 
+
+  
+
+LP4：  DEC  21H                  ；步调数减1 
+
+MOV  A，21H              ；步调数(0至7)，每减8步为一个周期，
+
+CJNE    A，＃0FFH，LP3      ；步调数不为8转 
+
+MOV  A，＃07H 
+
+MOV  21H，A 
+
+LP3：  MOVC  A，@A+DPTR        ；查控制码到A 
+
+ORL  A，B                  ；P1口低4位状态送A 
+
+MOV  P1，A               ； 送出控制码 
+
+CALL    YS_SD              ；根据速度参数延时 
+
+DJNZ  R0，LP4                ；步进数减1不为0转LP4 
+
+MOV  A，＃0F0H            ；停止电机驱动 
+
+ORL  A，B  
+
+MOV   P1,A 
+
+POP    A 
+
+RET                           ；子程序返回 
+
+END                            ；子程序编译结束 
+
+  
+
+  
+
+PROC  YS_SD                         ；速度延时子程序 
+
+YS_SD：MOV  R7， 20H                 ；速度参数送R7 
+
+LP2：   MOV  R6，＃0B0H               
+
+LP1：  NOP 
+
+NOP 
+
+DJNZ  R6，LP1                 
+
+DJNZ  R7，LP2 
+
+RET 
+
+END 
+
+  
+
+MTAB：  DB    0E0H，0C0H，0D0H，90H，0B0H，30H，70H，60H 
+
+；********************************************************************** 
+
+END 

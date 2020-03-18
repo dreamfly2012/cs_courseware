@@ -1,0 +1,32 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: exa3 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\fujia\AppData\Local\Temp\RSP5E29.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/exa3.pdb" /debug /machine:I386 /out:"Debug/exa3.exe" /pdbtype:sept 
+".\Debug\exa3.obj"
+".\Debug\StdAfx.obj"
+]
+Creating command line "link.exe @C:\Users\fujia\AppData\Local\Temp\RSP5E29.tmp"
+<h3>Output Window</h3>
+Linking...
+LINK : warning LNK4076: invalid incremental status file "Debug/exa3.ilk"; linking nonincrementally
+exa3.obj : warning LNK4044: unrecognized option "FAILIFMISMATCH:_MSC_VER=1600"; ignored
+exa3.obj : warning LNK4044: unrecognized option "FAILIFMISMATCH:_ITERATOR_DEBUG_LEVEL=2"; ignored
+libcpmtd.lib(ios.obj) : error LNK2005: "public: void __thiscall std::ios_base::clear(int,bool)" (?clear@ios_base@std@@QAEXH_N@Z) already defined in exa3.obj
+libcpmtd.lib(locale0.obj) : error LNK2005: "public: static unsigned int const std::ctype<char>::table_size" (?table_size@?$ctype@D@std@@2IB) already defined in exa3.obj
+LINK : fatal error LNK1207: incompatible PDB format in "D:\课件\多核程序设计\多核程序\exa3\Debug\exa3.pdb"; delete and rebuild
+Error executing link.exe.
+
+
+
+<h3>Results</h3>
+exa3.exe - 3 error(s), 3 warning(s)
+</pre>
+</body>
+</html>

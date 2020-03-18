@@ -1,0 +1,9 @@
+  AREA  Example,CODE,READONLY
+  ENTRY
+  CODE32
+
+START MOV R0,#15
+      MOV R1,#8
+      ADDS R0,R0,R1
+      B START
+      END

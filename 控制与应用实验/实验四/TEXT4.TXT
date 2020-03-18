@@ -1,0 +1,44 @@
+ORG 0000H
+LJMP STRT
+ORG 000BH              ;中断100MS
+LJMP INT0
+ORG 2000H
+STRT:           ;初始化
+       MOV TMO,#01H
+       MOV TH0,#0CFH   ;送初值
+       MOV TL0,#2CH
+       SETB EA
+       SETB ET0
+       SETB TR0
+HALT:  SJMP $    	;等待中断
+INT0:  ;处理
+       MOV TH0,#0CFH   ;送初值
+       MOV TL0,#2CH
+       RETI
+ROUT1: MOV R2,#60H     ;正转步数
+       MOV R1,#0FFH     ;反转步数
+LP0:   MOV R3,#00H      ;初始化R3=00H
+       MOV DPTR,#TAB
+
+       JNB 00H,LP2     ;00H为1正转,0反转
+
+LP1:   MOV A,R3        ;正转+1
+       MOVC A,@A+DPTR
+       JZ LP0          ;走完四拍返回
+
+       MOV P1,A        ;一拍,步进一步
+       ACALL DL        ;DELAY
+       INC R3          ;拍数目+1,偏移+1
+       DJNZ R2,LP1     ;步数-1,是否完成步数
+       ;完成正转后需要延时3S
+       RET
+LP2:   MOV A,R3          ;反转   
+       ADD A,#05H        ;偏移量反向控制  
+       MOV R3,A
+       LJMP LP1
+DL:    ;延迟
+RET
+TAB: DB 01H,02H,04H,08H,00H;正转,00H作为结束
+     DB 08H,04H,02H,01H,00H;反转,00H作为结束
+     END
+     

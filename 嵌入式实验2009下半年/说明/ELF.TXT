@@ -1,0 +1,214 @@
+ELF:      Executable and Linking Format
+
+ELF的三种类型《出自EXECUTABLE AND LINKABLE FORMAT (ELF)》：
+
+* 一个可重定位(relocatable)文件保存着代码和适当的数据，用来和其他的
+  object文件一起来创建一个可执行文件或者是一个共享文件。
+* 一个可执行(executable)文件保存着一个用来执行的程序；该文件指出了
+  exec(BA_OS)如何来创建程序进程映象。
+* 一个共享object文件保存着代码和合适的数据，用来被下面的两个链接器
+  链接。第一个是连接编辑器[请参看ld(SD_CMD)]，可以和其他的可重定位和
+  共享object文件来创建其他的object。第二个是动态链接器，联合一个
+  可执行文件和其他的共享object文件来创建一个进程映象。
+
+  目标文件格式如下：
+
+Linking 视角 Execution 视角 
+============ ============== 
+ELF header ELF header 
+Program header table (optional) Program header table 
+Section 1 Segment 1 
+... Segment 2 
+Section n ... 
+Section header table Section header table (optional) 
+
+
+ 
+
+1 环境
+
+Arch: Intel 32
+
+       OS: Redhat 9.0
+
+       Compiler: gcc, icc
+
+       Other Tools: UltraEdit, readelf, objdump…
+
+ 
+
+2. 程序源码及编译
+
+常见的Hello World，源码如下
+
+#include <stdio.h>
+
+int main(void)
+
+{
+
+    printf("Hello World!\n");
+
+    return 0;
+
+}
+
+可能用到的编译命令：
+
+$ gcc -o hello.gcc hello.c
+
+$ gcc -static -o hello.gcc.static hello.c
+
+$ gcc -shared -o hello.gcc.shared hello.c
+
+$ icc -o hello.icc.o -c hello.c
+
+生成的文件包括： hello.gcc，hello.gcc.static，hello.gcc.shared，hello.icc.o
+
+ 
+
+3. ELF头部格式
+
+3.1 ELF头部数据结构表示：
+
+#define EI_NIDENT       16
+
+ typedef struct {
+      unsigned char       e_ident[EI_NIDENT];
+      Elf32_Half          e_type;
+      Elf32_Half          e_machine;
+      Elf32_Word          e_version;
+      Elf32_Addr          e_entry;
+      Elf32_Off           e_phoff;
+      Elf32_Off           e_shoff;
+      Elf32_Word          e_flags;
+      Elf32_Half          e_ehsize;
+      Elf32_Half          e_phentsize;
+      Elf32_Half          e_phnum;
+      Elf32_Half          e_shentsize;
+      Elf32_Half          e_shnum;
+      Elf32_Half          e_shstrndx;
+  } Elf32_Ehdr;
+
+其中，数据类型大小如下：
+
+  Name           Size  Alignment   Purpose
+  ====           ==== =========   =======
+  Elf32_Addr      4       4           Unsigned program address
+  Elf32_Half      2       2       Unsigned medium integer
+  Elf32_Off       4       4       Unsigned file offset
+  Elf32_Sword     4       4       Signed large integer
+  Elf32_Word      4       4       Unsigned large integer
+  unsigned char   1       1       Unsigned small integer
+
+3.2 以hello world程序为例，看看到底是什么样子的
+
+7E 45 4C 46 01 01 01 00 00 00 00 00 00 00 00 00
+
+02 00 03 00 01 00 00 00 78 82 04 08 34 00 00 00 
+
+3C 1D 00 00 00 00 00 00 34 00 20 00 06 00 28 00
+
+22 00 1F 00
+
+前16个字节是属于unsigned char       e_ident[EI_NIDENT]，标识ELF的一些信息。
+
+00000000-00000003 ：7E 45 4C 46
+
+       ELF文件以一个magic number开头(7F)，接下来是’E’，’L’，’F’这三个字符。
+
+00000004：01
+
+       这位是标明文件的类型，如果是0为非法，1为32位目标，2为64位目标，当初属于预留的，呵呵。在这里为32位目标文件。
+
+00000005：01
+
+       这位是处理器的编码方式，01表示高位在前，02表示低位在前，0是非法数据编码。
+
+00000006：01
+
+       这位是头部版本号。
+
+00000007-0000000f：00 00 00 00 00 00 00 00 00
+
+       标记 e_ident 中未使用字节的开始。初始化为 0。
+
+ 
+
+       然后是e_type，用来指明文件类型是三种object文件中的哪种
+
+00000010-00000011：02 00
+
+       这里，2代表可执行文件，1是可重定位的目标文件(gcc –c得到的是这样的文件)，而3表示共享目标文件(gcc –shared得到的文件如此)，同样，0是指未知的目标文件。其它的值含义如下
+
+        ET_CORE         4  Core file
+        ET_LOPROC  0xff00  Processor-specific
+        ET_HIPROC  0xffff  Processor-specific
+
+ 
+
+       下面是e_machine，用以指定系统的体系结构
+
+00000012-00000013：03 00
+
+       这里的3是指Intel 80386结构，据某篇文档说，ia32的结构上这位是必须指定为EM_386的，即值为3。其它取值含义如下：0是未指定，1是EM_M32，即AT&TWE 32100，2是EM_SPARC，即SPARC结构，4和5分别指EM_68K(Motorola 68000)和EM_88K(Motorola 88000)，7指EM_860(Intel 80860)，8指EM_MIPS(MPIS RS3000)。
+
+ 
+
+       第14到17位是e_version，指明目标文件版本
+
+00000014-00000017：01 00 00 00
+
+       取1为当前版本EV_CURRENT，取0为非法版本EV_NONE
+
+ 
+
+       接下来是e_entry，程序入口的虚拟地址。如果目标文件没有程序入口，可以为 0
+
+00000018-0000001b：78 82 04 08
+
+ 
+
+    然后是e_phoff和e_shoff，指程序头部表格和节区表格的偏移量， 以字节计算，如果没有的话，可以为0。这里是这样的
+
+0000001c-00000023：34 00 00 00 3C 1D 00 00
+
+       
+
+       后面接e_flags，是与文件和处理器相关的标志。这里是
+
+00000024-00000027：00 00 00 00，不明白这里都是0是什么意思。
+
+ 
+
+       然后就是e_ehsize了，说明了ELF头部的大小(字节)
+
+00000028-00000029：34 00
+
+ 
+
+       剩下的是e_phentsize，e_phnum，和e_shentsize，e_shnum，表明程序头部表格的表项大小和项目数和节区头部表格的表项大小和数目，每个2字节长。
+
+0000002a-00000031：20 00 06 00 28 00 22 00 
+
+       最后是节区头部表格中与名称字串相关的表项索引。如果没有节区名称字符串表，此参数可为SHN_UNDEF
+
+00000032-00000033：1F 00
+
+ 
+
+       到此，就是一个简单的hello world程序通过gcc –o hello hello.c编译得到的文件的ELF头部格式。
+
+ 
+
+4 犯的错误
+
+       没有注意到字节序，数错了位，在e_machine那里徘徊了很久，以为体系结构被填充为0，即未知，然后尝试用icc编译，结果还是那样，结果在UE中改了那个byte的值，程序无法运行，才发现这只是粗心的问题。
+
+ 
+
+5. 参考
+
+ELF格式
+
+《深入理解计算机系统》

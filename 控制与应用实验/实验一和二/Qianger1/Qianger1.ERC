@@ -1,0 +1,8 @@
+Error Report For : C:\EXPR\PFWSCH\QIANGER1.ERC    23-Apr-2010  08:44:15
+
+ #1 Warning  IO Pins And Output Pins On Net INT1
+   IO Pins                  : QIANGER1.SCH(U1-13 @520,500) 
+   Output Pins              : QIANGER1.SCH(U15-1 @360,400) 
+
+
+End Report

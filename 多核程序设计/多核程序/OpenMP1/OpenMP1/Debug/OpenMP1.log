@@ -1,0 +1,25 @@
+﻿生成启动时间为 2011/5/23 21:36:17。
+     1>项目“D:\课件\多核程序设计\多核程序\OpenMP1\OpenMP1\OpenMP1.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“.\Debug\OpenMP1.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         F:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\OpenMP1.exe" /INCREMENTAL /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Debug\OpenMP1.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\课件\多核程序设计\多核程序\OpenMP1\OpenMP1\Debug\OpenMP1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\OpenMP1.lib" /MACHINE:X86 .\Debug\OpenMP1.exe.embed.manifest.res
+         .\Debug\OpenMP1.obj
+       Manifest:
+         c:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\OpenMP1.exe.embed.manifest" /manifest .\Debug\OpenMP1.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         OpenMP1.vcxproj -> D:\课件\多核程序设计\多核程序\OpenMP1\OpenMP1\.\Debug\OpenMP1.exe
+       FinalizeBuildStatus:
+         正在删除文件“.\Debug\OpenMP1.unsuccessfulbuild”。
+         正在对“.\Debug\OpenMP1.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“D:\课件\多核程序设计\多核程序\OpenMP1\OpenMP1\OpenMP1.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:00.53

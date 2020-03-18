@@ -1,0 +1,8 @@
+Error Report For : C:\EXPR\PFWSCH\SHIYAN1.ERC    23-Apr-2010  08:15:54
+
+ #1 Warning  IO Pins And Output Pins On Net N00021
+   IO Pins                  : SHIYAN1.SCH(U1-13 @370,600) 
+   Output Pins              : SHIYAN1.SCH(U18-8 @340,400) 
+
+
+End Report

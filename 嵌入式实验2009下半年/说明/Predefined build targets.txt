@@ -1,0 +1,11 @@
+(1)Debug 
+This build target is configured to build output binaries that are fully debuggable, at the expense of optimization. It is intended to be used if you plan to build separate Debug and Release versions of your code. This build target provides the best debug view while you are developing your
+code. It is also configured to output basic image information in an error and messages window.
+
+(2)Release
+ This build target is configured to build output binaries that are fully optimized, at the expense of debug information. It is intended to be used if you plan to build separate Debug and Release versions of your code. This build target outputs optimized code suitable for release.
+(3) DebugRel 
+ This build target is configured to build output binaries that provide
+adequate optimization, and give an adequate debug view. It is intended to
+be used if you plan to build a version of your code for debug, and release
+the same code in order to reduce testing.

@@ -1,0 +1,6 @@
+Target system 
+   ARM-based hardware
+   simulated hardware
+
+Build target 
+   The collection of build settings and files that determines the output that is created when you build your project.

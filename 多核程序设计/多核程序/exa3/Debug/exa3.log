@@ -1,0 +1,28 @@
+﻿生成启动时间为 2011/5/23 21:47:18。
+     1>项目“D:\课件\多核程序设计\多核程序\exa3\exa3.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“.\Debug\exa3.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+         F:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _VC80_UPGRADE=0x0600 /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /Gy- /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp".\Debug\exa3.pch" /Fo".\Debug\\" /Fd".\Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt exa3.cpp
+         exa3.cpp
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         F:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:".\Debug\exa3.exe" /INCREMENTAL /NOLOGO odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:".\Debug\exa3.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\课件\多核程序设计\多核程序\exa3\Debug\exa3.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\Debug\exa3.lib" /MACHINE:X86 .\Debug\exa3.exe.embed.manifest.res
+         .\Debug\exa3.obj
+         .\Debug\StdAfx.obj
+       Manifest:
+         c:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:".\Debug\exa3.exe.embed.manifest" /manifest .\Debug\exa3.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         exa3.vcxproj -> D:\课件\多核程序设计\多核程序\exa3\.\Debug\exa3.exe
+       FinalizeBuildStatus:
+         正在删除文件“.\Debug\exa3.unsuccessfulbuild”。
+         正在对“.\Debug\exa3.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“D:\课件\多核程序设计\多核程序\exa3\exa3.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:03.01

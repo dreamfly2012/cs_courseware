@@ -1,0 +1,7 @@
+-g 
+  generate DWARF2 debug tables
+
+
+-keep 
+  instructs the assembler to keep local labels in the symbol table of the
+  object file, for use by the debugger 

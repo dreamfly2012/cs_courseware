@@ -1,0 +1,54 @@
+Matched Nets          N00027 and N00027
+Matched Nets          N00028 and N00028
+Matched Nets          N00064 and N00064
+Matched Nets          N00063 and N00063
+Matched Nets          N00062 and N00062
+Matched Nets          N00061 and N00061
+Matched Nets          N00060 and N00060
+Matched Nets          N00059 and N00059
+Matched Nets          N00058 and N00058
+Matched Nets          N00057 and N00057
+Matched Nets          N00050 and N00050
+Matched Nets          N00019 and N00019
+Matched Nets          N00011 and N00011
+Matched Nets          N00007 and N00007
+Matched Nets          N00004 and N00004
+Matched Nets          N00016 and N00016
+Matched Nets          N00015 and N00015
+Matched Nets          N00014 and N00014
+Matched Nets          N00013 and N00013
+Matched Nets          N00021 and N00021
+Matched Nets          N00017 and N00017
+Matched Nets          N00009 and N00009
+Matched Nets          N00037 and N00037
+Matched Nets          N00038 and N00038
+Matched Nets          N00039 and N00039
+Matched Nets          N00040 and N00040
+Matched Nets          N00041 and N00041
+Matched Nets          N00042 and N00042
+Matched Nets          N00043 and N00043
+Matched Nets          N00044 and N00044
+Matched Nets          N00045 and N00045
+Matched Nets          N00046 and N00046
+Matched Nets           GND_0 and GND_0
+Matched Nets          N00036 and N00036
+Matched Nets          N00035 and N00035
+Matched Nets          N00034 and N00034
+Matched Nets          N00033 and N00033
+Matched Nets          N00032 and N00032
+Matched Nets          N00031 and N00031
+Matched Nets          N00030 and N00030
+Matched Nets          N00029 and N00029
+Matched Nets           VCC_0 and VCC_0
+
+
+--------------------------------------------------
+Total Matched Nets                       = 42
+Total Partially Matched Nets             = 0
+
+Total Extra Nets in C:\EXPR\PFWSCH\RSHIYAN1.NET = 0
+Total Extra Nets in C:\EXPR\PFWSCH\SHIYAN1.NET = 0
+
+Total Nets in C:\EXPR\PFWSCH\RSHIYAN1.NET = 42
+Total Nets in C:\EXPR\PFWSCH\SHIYAN1.NET = 42
+--------------------------------------------------

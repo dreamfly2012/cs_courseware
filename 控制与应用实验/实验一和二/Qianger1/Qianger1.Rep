@@ -1,0 +1,65 @@
+Matched Nets              WR and WR
+Matched Nets             VCC and VCC
+Matched Nets              RD and RD
+Matched Nets             P17 and P17
+Matched Nets             P16 and P16
+Matched Nets             P15 and P15
+Matched Nets             P14 and P14
+Matched Nets             P13 and P13
+Matched Nets             P12 and P12
+Matched Nets             P11 and P11
+Matched Nets             P10 and P10
+Matched Nets             P07 and P07
+Matched Nets             P06 and P06
+Matched Nets             P05 and P05
+Matched Nets             P04 and P04
+Matched Nets             P03 and P03
+Matched Nets             P02 and P02
+Matched Nets             P01 and P01
+Matched Nets             P00 and P00
+Matched Nets        NetU14_3 and NetU14_3
+Matched Nets        NetU13_3 and NetU13_3
+Matched Nets        NetU12_2 and NetU12_2
+Matched Nets        NetU11_2 and NetU11_2
+Matched Nets        NetU10_2 and NetU10_2
+Matched Nets         NetU9_7 and NetU9_7
+Matched Nets         NetU8_2 and NetU8_2
+Matched Nets         NetU7_2 and NetU7_2
+Matched Nets         NetU6_2 and NetU6_2
+Matched Nets         NetU5_2 and NetU5_2
+Matched Nets         NetU4_2 and NetU4_2
+Matched Nets        NetU2_19 and NetU2_19
+Matched Nets        NetU2_16 and NetU2_16
+Matched Nets        NetU2_15 and NetU2_15
+Matched Nets        NetU2_12 and NetU2_12
+Matched Nets         NetU2_9 and NetU2_9
+Matched Nets         NetU2_6 and NetU2_6
+Matched Nets         NetU2_5 and NetU2_5
+Matched Nets         NetU2_2 and NetU2_2
+Matched Nets        NetU1_30 and NetU1_30
+Matched Nets        NetU1_29 and NetU1_29
+Matched Nets        NetU1_28 and NetU1_28
+Matched Nets        NetU1_27 and NetU1_27
+Matched Nets        NetU1_26 and NetU1_26
+Matched Nets        NetU1_25 and NetU1_25
+Matched Nets        NetU1_24 and NetU1_24
+Matched Nets        NetU1_23 and NetU1_23
+Matched Nets        NetU1_22 and NetU1_22
+Matched Nets        NetU1_21 and NetU1_21
+Matched Nets         NetR9_2 and NetR9_2
+Matched Nets        NetCR1_2 and NetCR1_2
+Matched Nets         NetC2_1 and NetC2_1
+Matched Nets            INT1 and INT1
+Matched Nets             GND and GND
+
+
+--------------------------------------------------
+Total Matched Nets                       = 53
+Total Partially Matched Nets             = 0
+
+Total Extra Nets in C:\EXPR\PFWSCH\QIANGER1.NET = 0
+Total Extra Nets in C:\EXPR\PFWSCH\RPCB_1.NET = 0
+
+Total Nets in C:\EXPR\PFWSCH\QIANGER1.NET = 53
+Total Nets in C:\EXPR\PFWSCH\RPCB_1.NET  = 53
+--------------------------------------------------

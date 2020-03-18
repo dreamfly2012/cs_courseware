@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenMP5", "OpenMP5\OpenMP5.vcproj", "{6FBD10C9-7B07-4AF9-ACF5-98C27C304D32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6FBD10C9-7B07-4AF9-ACF5-98C27C304D32}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6FBD10C9-7B07-4AF9-ACF5-98C27C304D32}.Debug|Win32.Build.0 = Debug|Win32
+		{6FBD10C9-7B07-4AF9-ACF5-98C27C304D32}.Release|Win32.ActiveCfg = Release|Win32
+		{6FBD10C9-7B07-4AF9-ACF5-98C27C304D32}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

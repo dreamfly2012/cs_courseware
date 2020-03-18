@@ -1,0 +1,54 @@
+	ORG 0000H
+    LJMP  STRT
+    ORG  0040H
+STRT:MOV R6,#3       ;送常数，十位
+	MOV R7,#8         ;个位
+	MOV A,R6
+	MOV B,#10         ;.........
+	MUL AB            ;十位*10，保存在A中
+	ADD A,R7          ;取得二进制数的结果存A
+    MOV R3,A          ;A送R3，保存
+    RR A              ;循环右移四次，取高4位
+    RR A
+    RR A 
+    RR A
+
+	ANL A,#0FH
+	MOV R6,A          ;保存十位二进制到R6
+	MOV DPTR,#0FF21H  ;PA口，位选码，1有效
+ 	MOV A,02H         ;送最低第2位
+    MOVX @DPTR,A
+MOV DPTR,#DATA
+MOV A,R6
+	MOVC A,@A+DPTR
+	MOV DPTR,#0FF22H  ;PB口，送段选码，0有效
+	MOVX @DPTR,A	
+L1: MOV A,#255        ;延时
+    DEC A
+    JNZ L1
+    
+	MOV A,#0FFH
+	MOV DPTR,#0FF22H  ;PB口，送0FFH,全部灭
+	MOVX @DPTR,A	 
+	
+    MOV A,R3          ;取段个位二进制数
+    ANL A,#0FH
+    MOV R7,A
+	MOV DPTR,#0FF21H  ;PA口，位选码，1有效
+	MOV A,01H         ;送最低第1位
+	MOVX @DPTR,A      ;送PA口
+	MOV DPTR,#DATA
+MOV A,R7
+	MOVC A,@A+DPTR    ;取个位段选码
+	MOV DPTR,#0FF22H  ;PB口，送段选码，0有效
+	MOVX @DPTR,A
+
+L2:	MOV A,#255        ;延时
+ 	DEC A
+ 	JNZ L2
+	MOV A,#0FFH
+	MOV DPTR,#0FF22H
+	MOVX @DPTR,A 	
+LJMP STRT
+DATA:  DB    0C0H,0F9H,0ACH,0B0H,99H,92H,82H,0F8H,80H,90H,88H,83H,0C6H,0A1H,86H,8EH
+END

@@ -1,0 +1,5 @@
+obj\Debug\exa10.exe
+obj\Debug\exa10.pdb
+bin\Debug\exa10.exe
+bin\Debug\exa10.pdb
+obj\Debug\ResolveAssemblyReference.cache
